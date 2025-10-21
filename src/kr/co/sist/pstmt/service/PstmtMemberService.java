@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import day1021.CstmtMemberDAO;
 import kr.co.sist.pstmt.dao.PstmtMemberDAO;
 import kr.co.sist.statement.dto.MemberDTO;
 
@@ -28,7 +29,9 @@ public class PstmtMemberService {
 	public boolean addMember(MemberDTO mDTO) {
 		boolean flag = false;// 기본은 실패 상태
 
-		PstmtMemberDAO pmDAO = PstmtMemberDAO.getInstance();
+		//PstmtMemberDAO pmDAO = PstmtMemberDAO.getInstance();
+		CstmtMemberDAO pmDAO = CstmtMemberDAO.getInstance();
+	
 
 		try {
 			flag = pmDAO.insertMember(mDTO) == 1;
@@ -97,7 +100,8 @@ public class PstmtMemberService {
 	public int modifyMember(MemberDTO mDTO) {
 		int flag = 0;
 		try {
-			PstmtMemberDAO pmDAO = PstmtMemberDAO.getInstance();
+//			PstmtMemberDAO pmDAO = PstmtMemberDAO.getInstance();
+			CstmtMemberDAO pmDAO = CstmtMemberDAO.getInstance();
 			try {
 				flag = pmDAO.updateMember(mDTO);
 			} catch (IOException e) {
@@ -124,7 +128,9 @@ public class PstmtMemberService {
 	public int removeMember(int memberNum) {
 		int flag = 0;
 		try {
-			PstmtMemberDAO pmDAO = PstmtMemberDAO.getInstance();
+//			PstmtMemberDAO pmDAO = PstmtMemberDAO.getInstance();
+			CstmtMemberDAO pmDAO = CstmtMemberDAO.getInstance();
+
 			try {
 				flag = pmDAO.deleteMember(memberNum);
 			} catch (IOException e) {

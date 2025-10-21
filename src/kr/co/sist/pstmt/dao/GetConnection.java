@@ -39,7 +39,7 @@ public class GetConnection {
 		
 		// 2. 로딩된 드라이버를 사용하여 커넥션 얻기 => Properties 도입.
 		//Properties 파일 경로를 가져와서 File 연결.
-		File file = new File("C:\\dev\\workspace\\jdbc_prj\\src\\properties\\database.properties");
+		File file = new File("C:\\dev\\workspace\\JAVA_jdbc_prj\\src\\properties\\database.properties");
 		if(!file.exists()) {//파일이 존재하지 않는지 체크
 			throw new IOException("Properties가 지정된 위치가 없습니다.");
 		}//end if
