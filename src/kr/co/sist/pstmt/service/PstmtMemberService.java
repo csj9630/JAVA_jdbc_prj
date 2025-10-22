@@ -55,7 +55,9 @@ public class PstmtMemberService {
 		List<MemberDTO> list = null;
 
 		try {
-			PstmtMemberDAO pmDAO = PstmtMemberDAO.getInstance();
+//			PstmtMemberDAO pmDAO = PstmtMemberDAO.getInstance();
+			CstmtMemberDAO pmDAO = CstmtMemberDAO.getInstance();
+
 			list = pmDAO.selectAllMember();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
