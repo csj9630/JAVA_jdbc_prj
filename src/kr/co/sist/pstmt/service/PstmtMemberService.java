@@ -79,7 +79,8 @@ public class PstmtMemberService {
 		MemberDTO mDTO = null;
 		try {
 
-			PstmtMemberDAO pmDAO = PstmtMemberDAO.getInstance();
+//			PstmtMemberDAO pmDAO = PstmtMemberDAO.getInstance();
+			CstmtMemberDAO pmDAO = CstmtMemberDAO.getInstance();
 
 			mDTO = pmDAO.selectOneMember(num);
 

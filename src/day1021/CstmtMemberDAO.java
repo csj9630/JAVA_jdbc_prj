@@ -290,7 +290,8 @@ public class CstmtMemberDAO {
 		MemberDTO mDTO = null;
 
 		Connection con = null;
-		PreparedStatement pstmt = null;
+//		PreparedStatement pstmt = null;
+		CallableStatement cstmt = null;
 		ResultSet rs = null;
 
 		GetConnection gc = GetConnection.getInstance();
@@ -298,23 +299,22 @@ public class CstmtMemberDAO {
 		try {
 			con = gc.getConn();
 
-			// 4.쿼리문 수행 후 결과 얻기
-
-			StringBuilder selectOneMember = new StringBuilder();
-			//@formatter:off
-			selectOneMember
-			.append("		SELECT NAME, AGE, GENDER, TEL, INPUT_DATE")
-			.append("		FROM MEMBER								")
-			.append("		WHERE num=?");
-			//@formatter:on
-
+			
 			// 3.쿼리문 생성객체 얻기
-			pstmt = con.prepareStatement(selectOneMember.toString());
-
+//			pstmt = con.prepareStatement(selectOneMember.toString());
+			cstmt = con.prepareCall("{ call select_one_member(?,?)}");
 			// 4. 바인드변수
-			pstmt.setInt(1, memberNum);
+			//in param
+			cstmt.setInt(1, memberNum);
 
-			rs = pstmt.executeQuery();
+			//out param
+			cstmt.registerOutParameter(2, Types.REF_CURSOR);
+			
+			//5. 쿼리문 수행
+			cstmt.execute();
+			
+			//6. out parameter에 저장된 값 받기.
+			rs = (ResultSet) cstmt.getObject(2);
 
 			if (rs.next()) {// 쿼리로 인한 조회 결과가 존재함.
 				mDTO = new MemberDTO();
@@ -329,7 +329,7 @@ public class CstmtMemberDAO {
 
 		} finally {
 			// 5.연결 끊기
-			gc.dbClose(con, pstmt, rs);
+			gc.dbClose(con, cstmt, rs);
 
 		} // end finally
 
